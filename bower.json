@@ -1,0 +1,21 @@
+{
+  "name": "guano-frontend",
+  "version": "0.0.1",
+  "authors": [
+    "Dylan William Hardison <dylan@hardison.net>"
+  ],
+  "description": "the frontend for guano",
+  "main": "index.html",
+  "license": "GPLv3",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.10.0"
+  }
+}
