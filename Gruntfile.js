@@ -1,10 +1,11 @@
 // vim: set ts=2 sw=2:
 
-var path = require("path");
+var path     =  require("path");
+var matchdep =  require('matchdep');
 
 module.exports = function(grunt) {
 
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  matchdep.filterDev('grunt-*').forEach(grunt.loadNpmTasks);
   var pkg = grunt.file.readJSON('package.json');
 
   var ngmin = {
@@ -128,41 +129,65 @@ module.exports = function(grunt) {
                 '*.html'
               ],
               dest: 'dist/app'
-            }
+            },
+            {
+              expand: true,
+              src: [ 'lib/*.js', 'server.js' ], 
+              dest: 'dist',
+            },
+            {
+              expand: true,
+              src: matchdep.filter('*').map(function(mod){ return path.join("node_modules", mod, '**/*'); }),
+              dest: 'dist',
+            },
           ]
         }
     },
 
     // Filerev
     filerev: {
-        options: {
-            encoding: 'utf8',
-            algorithm: 'md5',
-            length: 20
-        },
-        release: {
-            // filerev:release hashes(md5) all assets (images, js and css )
-            // in dist directory
-            files: [{
-                src: [
-                    'dist/app/images/*.{png,gif,jpg,svg}',
-                    'dist/app/scripts/*.js',
-                    'dist/app/styles/*.css',
-                ]
-            }]
-        }
+      options: {
+        encoding: 'utf8',
+        algorithm: 'md5',
+        length: 20
+      },
+      release: {
+        // filerev:release hashes(md5) all assets (images, js and css )
+        // in dist directory
+        files: [{
+          src: [
+            'dist/app/images/*.{png,gif,jpg,svg}',
+            'dist/app/scripts/*.js',
+            'dist/app/styles/*.css',
+          ]
+        }]
+      }
     },
 
     clean: {
-        // clean:release removes generated files
-        release: [
-            'dist',
-            'app/components',
-            'app/styles/*.css'
-        ]
+      // clean:release removes generated files
+      release: [
+        'dist',
+        'app/components',
+        'app/styles/*.css'
+      ]
+    },
+
+    // Watch
+    watch: {
+      // watch:less invokes less:dev when less files change
+      less: { }
     },
 
   });
+
+  // Invoked when grunt is called
+  grunt.registerTask('default', 'Default task', [
+    'jshint',
+    'bower:install',
+    'less:dev'
+  ]);
+
 
   grunt.registerTask('release', 'Creates a release in /dist', [
       'clean',
