@@ -125,20 +125,12 @@ module.exports = function(grunt) {
               expand: true,
               cwd: 'app',
               src: [
-                'images/*.{png,gif,jpg,svg}',
+                'images/*.{png,gif,jpg,svg,jpeg}',
+                'templates/*.html',
+                'components/bootstrap/fonts/*',
                 '*.html'
               ],
               dest: 'dist/app'
-            },
-            {
-              expand: true,
-              src: [ 'lib/*.js', 'server.js' ], 
-              dest: 'dist',
-            },
-            {
-              expand: true,
-              src: matchdep.filter('*').map(function(mod){ return path.join("node_modules", mod, '**/*'); }),
-              dest: 'dist',
             },
           ]
         }

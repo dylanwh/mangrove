@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <base href="/">
         <title>Guano</title>
         <link rel="stylesheet" type="text/css" href="styles/main.css">
         <!-- build:js scripts/main.js -->
@@ -29,13 +30,13 @@
                 <div class="navbar-collapse collapse" ng-class="!navCollapsed && 'in'">
                     <ul class="nav navbar-nav">
                         <li ng-class="{ active: isActive('/')}"><a href="/">Home</a></li>
-                        <li ng-class="{ active: isActive('/about')}"><a href="about">About</a></li>
-                        </li>
+                        <li ng-class="{ active: isActive('/ports.html')}"><a href="ports.html">Ports</a></li>
+                        <li ng-class="{ active: isActive('/about.html')}"><a href="about.html">About</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-        <div ng-view>{{message}}</div>
+        <div ng-view></div>
         </div>
     </body>
 </html>
