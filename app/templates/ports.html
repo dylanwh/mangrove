@@ -11,13 +11,13 @@
         <tbody>
             <tr ng-repeat="port in ports">
                 <td>
-                    <input type="number" ng-model="port.sourcePort" required>
+                    <input type="number" ng-model="port.source_port" required>
                 </td>
                 <td>
-                    <input type="text"   ng-model="port.destinationAddress" required>
+                    <input type="text"   ng-model="port.destination_address" required>
                 </td>
                 <td>
-                    <input type="number" ng-model="port.destinationPort" required>
+                    <input type="number" ng-model="port.destination_port" required>
                 </td>
                 <td>
                   <button type="button" ng-click="remove(port)" class="btn btn-danger">

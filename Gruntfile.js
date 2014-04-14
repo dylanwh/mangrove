@@ -125,7 +125,7 @@ module.exports = function(grunt) {
               expand: true,
               cwd: 'app',
               src: [
-                'images/*.{png,gif,jpg,svg,jpeg}',
+                'images/*.{png,gif,jpg,svg,jpeg,ico}',
                 'templates/*.html',
                 'components/bootstrap/fonts/*',
                 '*.html'
@@ -148,7 +148,7 @@ module.exports = function(grunt) {
         // in dist directory
         files: [{
           src: [
-            'dist/app/images/*.{png,gif,jpg,svg}',
+            'dist/app/images/*.{png,gif,jpg,svg,jpeg,ico}',
             'dist/app/scripts/*.js',
             'dist/app/styles/*.css',
           ]

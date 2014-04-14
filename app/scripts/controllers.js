@@ -8,14 +8,16 @@ guano.controller('MainController', function ($scope, $location) {
   $scope.message = "PANTS";
 });
 
-guano.controller('PortsController', function ($scope) {
-  $scope.ports = [
-    { sourcePort: 22, destinationPort: 22, destinationAddress: '10.0.0.4' },
-    { sourcePort: 23, destinationPort: 22, destinationAddress: '10.0.0.5' },
-    { sourcePort: 24, destinationPort: 22, destinationAddress: '10.0.0.6' },
-    { sourcePort: 25, destinationPort: 22, destinationAddress: '10.0.0.7' },
-    { sourcePort: 26, destinationPort: 22, destinationAddress: '10.0.0.8' },
-  ];
+guano.controller('PortsController', function ($scope, $http) {
+  $scope.ports = [ ];
+  var ports = $http.get("/api/ports");
+
+  ports.success(function(data, status, headers, config) {
+    $scope.ports = data;
+  });
+  ports.error(function(data, status, headers, config) {
+    alert("AJAX failed!");
+  });
 
   $scope.save = function () {
     console.log($scope.ports);
