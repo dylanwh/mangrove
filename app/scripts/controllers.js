@@ -1,6 +1,6 @@
-var guano = angular.module('guano', ['ngRoute', 'ui.bootstrap']);
+var mangrove = angular.module('mangrove', ['ngRoute', 'ui.bootstrap']);
 
-guano.controller('MainController', function ($scope, $location) {
+mangrove.controller('MainController', function ($scope, $location) {
   $scope.isActive = function (viewLocation) {
     return viewLocation === $location.path();
   };
@@ -8,7 +8,7 @@ guano.controller('MainController', function ($scope, $location) {
   $scope.message = "PANTS";
 });
 
-guano.controller('PortsController', function ($scope, $http) {
+mangrove.controller('PortsController', function ($scope, $http) {
   $scope.ports = [ ];
   var ports = $http.get("/api/ports");
 
@@ -32,15 +32,15 @@ guano.controller('PortsController', function ($scope, $http) {
   };
 });
 
-guano.controller('AboutController', function ($scope) {
+mangrove.controller('AboutController', function ($scope) {
   $scope.message = 'This is about screen';
 });
 
-guano.controller('RootController', function ($scope) {
+mangrove.controller('RootController', function ($scope) {
   $scope.message = 'This is root screen';
 });
 
-guano.config(
+mangrove.config(
   function ($routeProvider, $locationProvider) {
     $routeProvider.
     when('/ports.html', {

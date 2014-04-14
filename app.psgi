@@ -8,16 +8,16 @@ use Plack::App::File;
 use Plack::App::Directory;
 use Plack::Middleware::Static;
 use Web::Machine;
-use Guano::Schema;
-use Guano::Resource::Port;
+use Mangrove::Schema;
+use Mangrove::Resource::Port;
 
-my $app_dir = '../guano-frontend/dist/app';
+my $app_dir = 'app';
 
-my $schema = Guano::Schema->connect( 'dbi:Pg:dbname=system', 'guano', 'batshit' )
+my $schema = Mangrove::Schema->connect( 'dbi:Pg:dbname=system', 'guano', 'batshit' )
     or die;
 
 my $resource_port = Web::Machine->new(
-    resource      => 'Guano::Resource::Port',
+    resource      => 'Mangrove::Resource::Port',
     resource_args => [ schema => $schema ]
 );
 

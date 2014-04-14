@@ -1,12 +1,12 @@
 use utf8;
-package Guano::Schema::Result::Port;
+package Mangrove::Schema::Result::Port;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Guano::Schema::Result::Port
+Mangrove::Schema::Result::Port
 
 =cut
 
@@ -97,8 +97,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-04-13 21:35:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:L4PoH78pG4KzxfuOELnd7w
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-04-14 00:30:25
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4tu5tA8YYAOLUI+HeFwHQQ
 
 sub TO_JSON {
     my ($self) = @_;

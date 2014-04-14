@@ -1,8 +1,10 @@
+#!/bin/sh
+
 dbicdump -o dump_directory=./lib \
--o components='["InflateColumn::DateTime"]' \
--o debug=1 \
--o db_schema='["application"]' \
--o rescan=1 \
-Guano::Schema \
-'dbi:Pg:dbname=system' \
-guano 
+    -o components='["InflateColumn::DateTime"]' \
+    -o debug=1 \
+    -o db_schema='["application"]' \
+    -o rescan=1 \
+    Mangrove::Schema \
+    'dbi:Pg:dbname=system' \
+    guano 

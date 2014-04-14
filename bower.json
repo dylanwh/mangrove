@@ -1,10 +1,10 @@
 {
-  "name": "guano",
+  "name": "mangrove",
   "version": "0.0.1",
   "authors": [
     "Dylan William Hardison <dylan@hardison.net>"
   ],
-  "description": "the frontend for guano",
+  "description": "the frontend for mangrove",
   "main": "index.html",
   "license": "GPLv3",
   "private": true,

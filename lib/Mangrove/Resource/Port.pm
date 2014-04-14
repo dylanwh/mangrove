@@ -1,4 +1,4 @@
-package Guano::Resource::Port;
+package Mangrove::Resource::Port;
 use strict;
 use warnings;
 use JSON ();
@@ -13,7 +13,7 @@ has 'context' => ( is => 'rw' );
 
 has 'schema' => (
     is       => 'ro',
-    isa      => 'Guano::Schema',
+    isa      => 'Mangrove::Schema',
     required => 1,
 );
 

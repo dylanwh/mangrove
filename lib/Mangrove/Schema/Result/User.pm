@@ -1,12 +1,12 @@
 use utf8;
-package Guano::Schema::Result::User;
+package Mangrove::Schema::Result::User;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Guano::Schema::Result::User
+Mangrove::Schema::Result::User
 
 =cut
 
@@ -95,8 +95,8 @@ __PACKAGE__->set_primary_key("id");
 __PACKAGE__->add_unique_constraint("users_username_key", ["username"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-04-13 21:35:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yiL2x377HkrV0l/+IQaXQQ
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-04-14 00:30:49
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gfeWkNBoulxzaRZqychLng
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
