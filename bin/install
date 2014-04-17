@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cpanm --notest --installdeps . -L perl_modules
+npm install

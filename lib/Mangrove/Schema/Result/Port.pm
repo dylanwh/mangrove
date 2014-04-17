@@ -42,12 +42,12 @@ __PACKAGE__->table("ports");
   is_nullable: 0
   sequence: 'ports_id_seq'
 
-=head2 source_address
+=head2 description
 
-  data_type: 'inet'
-  is_nullable: 0
+  data_type: 'text'
+  is_nullable: 1
 
-=head2 source_port
+=head2 port
 
   data_type: 'port_number'
   is_nullable: 0
@@ -74,9 +74,9 @@ __PACKAGE__->add_columns(
     is_nullable       => 0,
     sequence          => "ports_id_seq",
   },
-  "source_address",
-  { data_type => "inet", is_nullable => 0 },
-  "source_port",
+  "description",
+  { data_type => "text", is_nullable => 1 },
+  "port",
   { data_type => "port_number", is_nullable => 0, size => 4 },
   "destination_address",
   { data_type => "inet", is_nullable => 0 },
@@ -97,12 +97,12 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-04-14 00:30:25
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4tu5tA8YYAOLUI+HeFwHQQ
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-04-15 20:33:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MBTZiXIvs8l2qUbkH2VzjQ
 
 sub TO_JSON {
     my ($self) = @_;
-    return +{ map { ( $_, $self->$_ ) } qw( id source_address source_port destination_address destination_port ) };
+    return +{ map { ( $_, $self->$_ ) } $self->columns };
 }
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

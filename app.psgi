@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use local::lib;
+use local::lib 'perl_modules';
 
 use Plack::Builder;
 use Plack::App::File;
@@ -9,7 +9,7 @@ use Plack::App::Directory;
 use Plack::Middleware::Static;
 use Web::Machine;
 use Mangrove::Schema;
-use Mangrove::Resource::Port;
+use Mangrove::Resource::Ports;
 
 my $app_dir = 'app';
 
@@ -17,8 +17,8 @@ my $schema = Mangrove::Schema->connect( 'dbi:Pg:dbname=system', 'guano', 'batshi
     or die;
 
 my $resource_port = Web::Machine->new(
-    resource      => 'Mangrove::Resource::Port',
-    resource_args => [ schema => $schema ]
+    resource      => 'Mangrove::Resource::Ports',
+    resource_args => [ ports => $schema->resultset('Port') ]
 );
 
 builder {
