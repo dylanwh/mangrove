@@ -5,8 +5,8 @@ controller('PortsController', function ($scope, $http) {
   $scope.ports = [ ];
   $scope.dirty = false;
 
-  var backup   = {};
-  var currentFocus = null;
+  var backup       =  {};
+  var currentFocus =  null;
 
   var portKeys = ['id', 'port', 'destination_address', 'destination_port', 'description' ];
   var backupPort = function(port) {
@@ -14,11 +14,11 @@ controller('PortsController', function ($scope, $http) {
     portKeys.forEach(function(key) {
       copy[key] = port[key];
     });
-    backup[$index] = copy;
+    backup[$scope.index] = copy;
   };
 
   var restorePort = function(port) {
-    var copy = backup[$index];
+    var copy = backup[$scope.index];
     portKeys.forEach(function(key) {
       port[key] = copy[key];
     });
@@ -45,10 +45,9 @@ controller('PortsController', function ($scope, $http) {
     $scope.ports.push({  port: 0, destination_port: 0, destination_address: '' });
   };
 
-  $scope.remove = function($index) {
+  $scope.remove = function() {
     $scope.dirty = true;
-    // $scope.ports.splice($index, 1);
-    alert($scope.index);
+    $scope.ports.splice($scope.index, 1);
   };
 
   $scope.edit = function (port, field) {
@@ -69,9 +68,10 @@ controller('PortsController', function ($scope, $http) {
     var getPorts = $http.get("/api/ports/eth0");
     getPorts.success(function(data, status, headers, config) {
       console.log("got ports", data);
-      $scope.ports = data;
+      $scope.ports = data.ports;
     });
     getPorts.error(function(data, status, headers, config) {
+      $scope.error = data.error;
       console.log("AJAX Failed: ", status, data);
     });
 
@@ -79,12 +79,12 @@ controller('PortsController', function ($scope, $http) {
   };
 
   $scope.done = function(port) {
-    $scope._editable = false;
+    port._editable = false;
   };
 
   $scope.change = function(port, field) {
       $scope.dirty = true;
-      if (typeof(port._changed) == 'undefined' || port._changed == null) {
+      if (typeof(port._changed) == 'undefined' || port._changed === null) {
         port._changed = {};
       }
 
@@ -95,7 +95,7 @@ controller('PortsController', function ($scope, $http) {
   };
 
   $scope.blur = function(port, field) {
-      if (field == 'port' && !changed[$index].destination_port) {
+      if (field == 'port' && !changed[$scope.index].destination_port) {
         port.destination_port = port.port;
       }
   };

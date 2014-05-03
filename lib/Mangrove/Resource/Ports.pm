@@ -17,8 +17,10 @@ has 'ports' => (
 );
 
 has 'context' => (
-    is      => 'rw',
-    default => sub { [] },
+    traits  => ['Hash'],
+    reader  => '_context',
+    handles => { context => 'accessor', 'is_error' => [ 'exists', 'error' ] },
+    default => sub { +{} },
 );
 
 has 'schema' => (
@@ -61,7 +63,15 @@ sub allowed_methods {
 sub to_json {
     my $self = shift;
 
-    return $self->json->encode( $self->context );
+    return $self->json->encode( $self->_context );
+}
+
+sub finish_request {
+    my ($self, $metadata) = @_;
+
+    if ($self->is_error) {
+        $self->response->status(500);
+    }
 }
 
 sub from_json {
@@ -112,10 +122,11 @@ sub resource_exists {
     if ( my $iface = bind_path( '/:id', $self->request->path_info ) ) {
         # TODO, conditional on the interface name.
         try {
-            $self->context( [ $self->ports->all ] );
+            $self->context( ports => [ $self->ports->all ] );
         }
         catch {
-            $self->context( "$_" );
+            $self->context( error=> "$_" );
+            $self->response->status(500);
             return \500;
         };
         return 1;

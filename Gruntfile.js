@@ -66,7 +66,7 @@ module.exports = function(grunt) {
         html: 'app/index.html',
         options: {
             dest: 'dist/app',
-            flow: { steps: { 'js': [ngmin, 'concat', 'uglifyjs'], 'css': ['concat', 'cssmin']}, post: {}},
+            flow: { steps: { 'js': ['ngmin', 'concat', 'uglifyjs'], 'css': ['concat', 'cssmin']}, post: {}},
             // flow: { steps: { 'js': ['concat', ngmin], 'css': ['concat', 'cssmin']}, post: {}},
         }
     },

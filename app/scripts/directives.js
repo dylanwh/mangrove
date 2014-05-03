@@ -8,7 +8,7 @@ directive('mgFocus', function ($timeout) {
     });
   };
 }).
-directive('mgFocusSelect', function ($timeout) {
+directive('mgFocusSelect', function () {
     return function (scope, elem, attrs) {
         scope.$watch(attrs.mgFocusSelect, function (newval) {
         if (newval) {
