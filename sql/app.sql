@@ -1,6 +1,6 @@
-/* CREATE DOMAIN port_number AS integer CHECK (VALUE >= 0 AND VALUE < 65536); */
+CREATE DOMAIN port_number   AS INTEGER CHECK (VALUE >= 0 AND VALUE < 65536);
 
-CREATE TABLE ports (
+CREATE TABLE IF NOT EXISTS ports (
     id                  SERIAL PRIMARY KEY,
     description         TEXT,
     port                port_number NOT NULL,

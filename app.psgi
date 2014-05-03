@@ -18,7 +18,8 @@ my $schema = Mangrove::Schema->connect( 'dbi:Pg:dbname=system', 'guano', 'batshi
 
 my $resource_port = Web::Machine->new(
     resource      => 'Mangrove::Resource::Ports',
-    resource_args => [ ports => $schema->resultset('Port') ]
+    resource_args => [ ports => $schema->resultset('Port') ],
+    tracing => 1,
 );
 
 builder {

@@ -10,7 +10,9 @@
         <script src="components/angular/angular.js"></script>
         <script src="components/angular-route/angular-route.js"></script>
         <script src="components/angular-bootstrap/ui-bootstrap.js"></script>
-        <script src="scripts/controllers.js" ></script>
+        <script src="scripts/directives.js" ></script>
+        <script src="scripts/ports.js" ></script>
+        <script src="scripts/main.js" ></script>
         <!-- endbuild -->
     </head>
 
@@ -27,7 +29,7 @@
                     </button>
                     <a class="navbar-brand" href="#">Project Mangrove</a>
                 </div>
-                <div class="navbar-collapse collapse" ng-class="!navCollapsed && 'in'">
+                <div class="navbar-collapse collapse" ng-class="{in: !navCollapsed }">
                     <ul class="nav navbar-nav">
                         <li ng-class="{ active: isActive('/')}"><a href="/">Home</a></li>
                         <li ng-class="{ active: isActive('/ports.html')}"><a href="ports.html">Ports</a></li>

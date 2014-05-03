@@ -16,6 +16,11 @@ has 'ports' => (
     handles  => [ 'find_or_create', 'create' ],
 );
 
+has 'context' => (
+    is      => 'rw',
+    default => sub { [] },
+);
+
 has 'schema' => (
     is       => 'ro',
     lazy     => 1,
@@ -56,7 +61,7 @@ sub allowed_methods {
 sub to_json {
     my $self = shift;
 
-    return $self->json->encode( [ $self->ports->all ] );
+    return $self->json->encode( $self->context );
 }
 
 sub from_json {
@@ -79,6 +84,7 @@ sub from_json {
                         $self->find_or_create( \%port, { key => 'primary' });
                     }
                     else {
+                        delete $port{id};
                         $self->create(\%port);
                     }
                 }
@@ -105,6 +111,13 @@ sub resource_exists {
 
     if ( my $iface = bind_path( '/:id', $self->request->path_info ) ) {
         # TODO, conditional on the interface name.
+        try {
+            $self->context( [ $self->ports->all ] );
+        }
+        catch {
+            $self->context( "$_" );
+            return \500;
+        };
         return 1;
     }
 

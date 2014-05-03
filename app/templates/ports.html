@@ -1,37 +1,32 @@
-<div class="container">
+<div class="container" ng-init="reset()">
   <p ng-show="dirty" class="alert alert-warning">You have unsaved changes!</p>
   <p ng-hide="dirty" class="well">The following ports are forwarded.</p>
   <div class="table-responsive">
-    <form class="form-inline">
+  <form class="form-inline">
   <table class="table table-striped table-bordered table-condensed table-hover ports">
     <thead>
       <tr>
-        <th>Action</th>
         <th>Port </th>
         <th>Destination Address </th>
         <th>Destination Port </th>
         <th>Description</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="port in ports" ng-class="isChanged(port) && 'warning'">
-        <td class="actions">
-          <button ng-hide="isEditable(port)" type="button" ng-click="edit(port)"   class="btn btn-primary btn-xs">
-            <span class="glyphicon glyphicon-pencil"></span>
-          </button>
-          <button ng-show="isEditable(port)" type="button" ng-click="done(port)"   class="btn btn-success btn-xs">
-            <span class="glyphicon glyphicon-ok"></span>
-          </button>
-          <button type="button" ng-click="remove(port)" class="btn btn-danger btn-xs">
-            <span class="glyphicon glyphicon-trash"></span>
-          </button>
-        </td>
+      <tr ng-repeat='port in ports'
+          ng-class="{ warning: isChanged(port) }"
+          ng-init="$parent.index=$index"
+          mg-enter="done(port)">
         <td ng-click="edit(port, 'port')">
           <input type="number" min="1" max="65535" required
             ng-model="port.port"
             ng-show="isEditable(port)"
-            mg-focus-select="isFocused(port, 'port')"
-            ng-change="change(port)" >
+
+            mg-focus-select="mustFocus(port, 'port')"
+            ng-blur="blur(port, 'port')"
+            ng-focus="focus(port, 'port')"
+            ng-change="change(port, 'port')" >
           <div ng-hide="isEditable(port)">
             {{ port.port }}
           </div>
@@ -40,8 +35,10 @@
           <input type="text" required
             ng-model="port.destination_address"
             ng-show="isEditable(port)"
-            mg-focus-select="isFocused(port, 'destination_address')"
-            ng-change="change(port)" >
+            mg-focus-select="mustFocus(port, 'destination_address')"
+            ng-blur="blur(port, 'destination_address')"
+            ng-focus="focus(port, 'destination_address')"
+            ng-change="change(port, 'destination_address')" >
           <div ng-hide="isEditable(port)">
             {{ port.destination_address }}
           </div>
@@ -50,8 +47,10 @@
           <input type="number" min="1" max="65535" required
             ng-model="port.destination_port"
             ng-show="isEditable(port)"
-            mg-focus-select="isFocused(port, 'destination_port')"
-            ng-change="change(port)" >
+            mg-focus-select="mustFocus(port, 'destination_port')"
+            ng-blur="blur(port, 'destination_port')"
+            ng-focus="focus(port, 'destination_port')"
+            ng-change="change(port, 'destination_port')" >
           <div ng-hide="isEditable(port)">
             {{ port.destination_port }}
           </div>
@@ -60,16 +59,37 @@
           <input type="text"
             ng-model="port.description"
             ng-show="isEditable(port)"
-            mg-focus-select="isFocused(port, 'description')"
-            ng-change="change(port)" >
+            mg-focus-select="mustFocus(port, 'description')"
+            ng-blur="blur(port, 'description')"
+            ng-focus="focus(port, 'description')"
+            ng-change="change(port, 'description')" >
           <div ng-hide="isEditable(port)">
             {{ port.description }}
+          </div>
+        </td>
+        <td>
+          <div class="pull-left">
+            <button ng-hide="isEditable(port)" type="button" ng-click="edit(port)"   class="btn btn-primary btn-xs">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button ng-show="isEditable(port)" type="button" ng-click="done(port)"   class="btn btn-success btn-xs">
+              <span class="glyphicon glyphicon-ok"></span>
+            </button>
+            <button ng-show="isEditable(port)" type="button" ng-click="cancel(port)" class="btn btn-danger btn-xs">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </div>
+
+          <div class="pull-right">
+            <button type="button" ng-click="remove($index)" class="btn btn-danger btn-xs">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
           </div>
         </td>
       </tr>
     </tbody>
     <tfoot>
-      <td colspan="3" ng-click="add()">
+      <td colspan="5" ng-click="add()">
           ...
       </td>
     </tfoot>
@@ -77,5 +97,8 @@
   </form>
   </div>
 
-  <button type="button" ng-click="save()" ng-disabled="!dirty" class="btn btn-primary">Save</button>
+  <div class="btn-group pull-right">
+    <button type="button" ng-click="reset()" ng-disabled="!dirty" class="btn btn-danger">Reset</button>
+    <button type="button" ng-click="save()" ng-disabled="!dirty" class="btn btn-primary">Save</button>
+  </div>
 </div>
