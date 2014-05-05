@@ -10,6 +10,7 @@ use Plack::Middleware::Static;
 use Web::Machine;
 use Mangrove::Schema;
 use Mangrove::Resource::Ports;
+use Mangrove::Resource::Blacklist;
 
 my $app_dir = 'app';
 
@@ -19,7 +20,11 @@ my $schema = Mangrove::Schema->connect( 'dbi:Pg:dbname=system', 'guano', 'batshi
 my $resource_port = Web::Machine->new(
     resource      => 'Mangrove::Resource::Ports',
     resource_args => [ ports => $schema->resultset('Port') ],
-    tracing => 1,
+);
+
+my $resource_blacklist = Web::Machine->new(
+    resource => 'Mangrove::Resource::Blacklist',
+    resource_args => [ blacklist => $schema->resultset('Blacklist') ],
 );
 
 builder {
@@ -32,6 +37,7 @@ builder {
         root => $app_dir;
 
     mount "/api/ports" => $resource_port->to_app;
+    mount "/api/blacklist" => $resource_blacklist->to_app;
     mount "/"          => Plack::App::Directory->new(root => $app_dir)->to_app;
 };
 

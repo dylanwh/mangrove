@@ -1,4 +1,4 @@
-var mangrove = angular.module('mangrove', ['ngRoute', 'ui.bootstrap', 'mangrovePorts']);
+var mangrove = angular.module('mangrove', ['ngRoute', 'ui.bootstrap', 'mangrovePorts', 'mangroveBlacklist']);
 
 mangrove.controller('MainController', function ($scope, $location) {
   $scope.isActive = function (viewLocation) {
@@ -17,6 +17,10 @@ mangrove.config(
       templateUrl: 'templates/ports.html',
       controller: 'PortsController',
       controllerAs: 'ports'
+    }).
+    when('/blacklist.html', {
+      templateUrl: 'templates/blacklist.html',
+      controller: 'BlacklistController',
     }).
     when('/about.html', {
       templateUrl: 'templates/about.html',

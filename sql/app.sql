@@ -5,5 +5,11 @@ CREATE TABLE IF NOT EXISTS ports (
     description         TEXT,
     port                port_number NOT NULL,
     destination_address INET NOT NULL,
-    destination_port    port_number NOT NULL
+    destination_port    port_number
+);
+
+CREATE TABLE IF NOT EXISTS blacklist (
+    id SERIAL PRIMARY KEY,
+    address INET NOT NULL,
+    reason  TEXT NOT NULL
 );

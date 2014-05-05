@@ -1,0 +1,3 @@
+
+* destination_port can be null, and when it is null it should be the same as the source port.
+* the above needs to be exposed in the UI in a nice way

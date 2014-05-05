@@ -1,0 +1,38 @@
+<div class="container">
+  <p ng-show="dirty" class="alert alert-warning">You have unsaved changes!</p>
+  <p ng-show="error" class="alert alert-danger">{{ error }}</p>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        The following IP addresses / networks are blocked
+      </div>
+      <div class="panel-body">
+        <ul class='list-group' ng-repeat='host in hosts track by $index'>
+          <li class='list-group-item'>
+            {{host.address}}  <i>({{host.reason}})</i>
+            <div class="btn-group btn-group-xs pull-right">
+              <a href="https://duckduckgo.com/?q={{host.address}}" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-search"></span>
+              </a>
+              <button type="button" ng-click="remove(host, $index)" class="btn btn-danger btn-xs">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="panel-footer">
+        <form role='form' class='form-inline' ng-submit='add()'>
+          <div class='form-group'>
+            <label class='sr-only' for="address">IP Address</label>
+            <input ng-model="address" id='address' type='text' class='form-control' placeholder="IP Addrss or Network" required>
+          </div>
+          <div class='form-group'>
+            <label class='sr-only' for="reason">Reason</label>
+            <input ng-model="reason" id='reason' type='text' class='form-control' placeholder="reason for block" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+</div>

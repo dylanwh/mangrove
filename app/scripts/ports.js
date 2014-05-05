@@ -5,15 +5,11 @@ controller('PortsController', function ($scope, $http) {
   $scope.ports = [ ];
   $scope.dirty = false;
 
-  var backup       =  {};
-  var currentFocus =  null;
-
-  var portKeys = ['id', 'port', 'destination_address', 'destination_port', 'description' ];
-  var backupPort = function(port) {
+  var backup     =  {};
+  var portKeys   =  ['id', 'port', 'destination_address', 'destination_port', 'description' ];
+  var backupPort =  function(port) {
     var copy = {};
-    portKeys.forEach(function(key) {
-      copy[key] = port[key];
-    });
+    portKeys.forEach(function(key) { copy[key] = port[key]; });
     backup[$scope.index] = copy;
   };
 
@@ -37,12 +33,10 @@ controller('PortsController', function ($scope, $http) {
 
   $scope.add = function () {
     $scope.dirty = true;
-    console.log( $scope.ports);
     if (! ($scope.ports instanceof Array)) {
       $scope.ports = [];
-      id = 1;
     }
-    $scope.ports.push({  port: 0, destination_port: 0, destination_address: '' });
+    $scope.ports.push({  port: 0, destination_port: null, destination_address: '' });
   };
 
   $scope.remove = function() {
@@ -58,9 +52,9 @@ controller('PortsController', function ($scope, $http) {
 
   $scope.cancel = function(port) {
     restorePort(port);
-    port._editable = false;
-    port._changed  = false;
-    port._focus = false;
+    port._editable =  false;
+    port._changed  =  false;
+    port._focus    =  false;
     $scope.done(port);
   };
 
@@ -91,37 +85,33 @@ controller('PortsController', function ($scope, $http) {
       port._changed[field] = true;
   };
 
-  $scope.focus = function(port, $field) {
-  };
+  $scope.focus = function(port, $field) { };
 
-  $scope.blur = function(port, field) {
-      if (field == 'port' && !changed[$scope.index].destination_port) {
-        port.destination_port = port.port;
-      }
-  };
+  $scope.blur = function(port, field) { };
 
   $scope.isEditable = function(port) {
       return port._editable;
   };
 
   $scope.mustFocus = function(port, field) {
-      if (currentFocus) {
-          if (field) {
-            return currentFocus.port == port && currentFocus.field == field;
-          }
-          else {
-            return currentFocus.port == port;
-          }
-      }
-      else {
-          return false;
-      }
+    if (port._focus && field && port._focus == field) {
+      return true;
+    }
+    else {
+      return false;
+    }
   };
 
-  $scope.isChanged = function(port) {
-      return !!port._changed;
+  $scope.isChanged = function(port, field) {
+      if (port._changed) {
+        if (!field) {
+          return true;
+        }
+        else {
+          if (field in port._changed) {
+            return port._changed[field];
+          }
+        }
+      }
   };
-
 });
-
-
